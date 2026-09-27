@@ -1,38 +1,43 @@
 name: Testes da API
 
 on:
-push:
-branches:
-- main
-- testes-de-api
-
-pull_request:
-branches:
-- main
-
-workflow_dispatch:
+  push:
+    branches:
+      - main
+      - testes-de-api
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-test:
-name: Executar testes automatizados
-runs-on: ubuntu-latest
+  test:
+    name: Executar testes automatizados
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout do código
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-  - name: Configurar Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: 24
-      cache: npm
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
 
-  - name: Instalar dependências
-    run: npm ci
+      - name: Instalar dependências
+        run: npm ci
 
-  - name: Executar testes
-    run: npm test
-    env:
-      BASE_URL: http://localhost:3000
-```
+      - name: Iniciar o servidor da API em segundo plano
+        run: npm start &
+        env:
+          PORT: 3000
+          NODE_ENV: test
+
+      - name: Aguardar a API ficar online na porta 3000
+        run: npx wait-on http://localhost:3000 -t 30000
+
+      - name: Executar testes automatizados
+        run: npm test
+        env:
+          BASE_URL: http://localhost:3000
