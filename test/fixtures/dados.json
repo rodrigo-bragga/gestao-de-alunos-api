@@ -1,0 +1,16 @@
+[
+  {
+    "testTitle": "Logar como administrador, cadastrar um aluno, logar como aluno e registrar a entrega de um trabalho como aluno",
+    "dadosAluno": { 
+        "nome": "João Silva", 
+        "email": "joao.silva@escola.com",
+        "matricula": "2024004",
+        "senha": "aluno123"
+    },
+    "dadosEntregaTrabalho": {
+        "disciplinaId": "disciplina-matematica",
+        "titulo": "Lista de Exercícios 2",
+        "descricao": "Resolução dos exercícios de 21 a 40 do capítulo 2."
+    }
+  }
+]

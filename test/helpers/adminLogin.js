@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 let tokenEmCache = null
 
-export async function comTokenDeAdmin() {
+export async function getTokenAdmin() {
     if (!tokenEmCache) {
         const loginResposta = await api()
             .post('/api/auth/login')
@@ -17,16 +17,4 @@ export async function comTokenDeAdmin() {
     }
 
     return `Bearer ${tokenEmCache}`;
-}
-
-export async function getToken(emailUser, passUser) {
-    const loginResposta = await api()
-        .post('/api/auth/login')
-        .set('Content-Type', 'application/json')
-        .send({ 
-            email: emailUser, 
-            senha: passUser
-        });
-
-    return loginResposta.body.token;
 }
